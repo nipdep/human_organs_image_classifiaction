@@ -1,5 +1,6 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import os
 import signal
 import numpy as np
@@ -63,6 +64,19 @@ def visualize_model(model, img_paths):
             plt.title(layer_name)
             plt.grid(False)
             plt.imshow(display_grid, aspect='auto', cmap='viridis')
+
+
+def plot_sample_of_img(nrows, ncols, img_paths):
+    fig = plt.gcf()
+    fig.set_size_inches(ncols * 4, nrows * 4)
+
+    for i, img_path in enumerate(img_paths):
+        # Set up subplot; subplot indices start at 1
+        sp = plt.subplot(nrows, ncols, i + 1)
+        sp.axis('Off')  # Don't show axes (or gridlines)
+        img = mpimg.imread(img_path)
+        plt.imshow(img)
+    plt.show()
 
 
 os.kill(os.getpid(), signal.SIGKILL)
