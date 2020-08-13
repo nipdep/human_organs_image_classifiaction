@@ -5,6 +5,7 @@ import os
 import signal
 import numpy as np
 import random
+from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 
 
@@ -77,6 +78,37 @@ def plot_sample_of_img(nrows, ncols, img_paths):
         img = mpimg.imread(img_path)
         plt.imshow(img)
     plt.show()
+
+
+def save(model, name):
+    model_save_path = '../../h5_files/models/'
+    weight_save_path = '../../h5_files/weights/'
+    if not os.path.exists(model_save_path):
+        os.mkdir(model_save_path)
+    if not os.path.exists(weight_save_path):
+        os.mkdir(weight_save_path)
+    model.save(os.path.join(model_save_path, name))
+    model.save_weights(os.path.join(weight_save_path, name))
+    return os.path.join(model_save_path, name),os.path.join(weight_save_path, name)
+
+
+def rnd_predict(model_path, model_weight_path, img_path, clToInt_dict):
+    model = load_model(model_path)
+    model.load_weights(model_weight_path)
+
+    x_img = load_img(img_path, target_size=(300, 300))
+    x = img_to_array(x_img)
+    x = np.expand_dims(x, axis=0)
+
+    result = model.predict(x)[0]
+    img_class = np.argmax(result)
+    str_img_class = clToInt_dict[img_class]
+
+    plt.imshow(x_img)
+    plt.title(str_img_class)
+    plt.show()
+
+    return str_img_class, img_class
 
 
 os.kill(os.getpid(), signal.SIGKILL)

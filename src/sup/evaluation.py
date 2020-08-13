@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
 from numpy import np
 from sklearn.metrics import roc_curve, auc
+
 plt.style.use('ggplot')
 
 from sklearn.metrics import confusion_matrix
+from .cf_metrix import make_confusion_matrix
 
-#%matplotlib inline
+
+# %matplotlib inline
 
 
 def acc_n_loss(history):
@@ -29,7 +32,8 @@ def acc_n_loss(history):
 
     plt.show()
 
-def ROC_classes(n_classes,y_test,y_predict_proba):
+
+def ROC_classes(n_classes, y_test, y_predict_proba, labels=[]):
     # Compute ROC curve and ROC AUC for each class
     fpr = dict()
     tpr = dict()
@@ -55,10 +59,16 @@ def ROC_classes(n_classes,y_test,y_predict_proba):
              color='deeppink', linestyle=':', linewidth=4)
 
     # Plot each individual ROC curve
-    for i in range(n_classes):
-        plt.plot(fpr[i], tpr[i], lw=2,
-                 label='ROC curve of class {0} (area = {1:0.2f})'
-                       ''.format(i, roc_auc[i]))
+    if len(labels) != 0:
+        for i in range(n_classes):
+            plt.plot(fpr[i], tpr[i], lw=2,
+                     label='ROC curve of class {0} (area = {1:0.2f})'
+                           ''.format(labels[i], roc_auc[i]))
+    else:
+        for i in range(n_classes):
+            plt.plot(fpr[i], tpr[i], lw=2,
+                     label='ROC curve of class {0} (area = {1:0.2f})'
+                           ''.format(i, roc_auc[i]))
 
     plt.plot([0, 1], [0, 1], 'k--', lw=2)
     plt.xlim([0.0, 1.0])
@@ -69,20 +79,24 @@ def ROC_classes(n_classes,y_test,y_predict_proba):
     plt.legend(loc="lower right")
     plt.show()
 
+
 def ROC_classifies():
     pass
 
-def plot_confusion_metrix(y,y_pred):
+
+def plot_confusion_metrix(y, y_pred, labels):
     # Get the confusion matrix
     cf_matrix = confusion_matrix(y, y_pred)
 
-    #make_confusion_matrix(cf,group_names=None,categories='auto',count=True,
-    #                     percent=True,
-    #                     cbar=True,
-    #                     xyticks=True,
-    #                     xyplotlabels=True,
-    #                     sum_stats=True,
-    #                     figsize=None,
-    #                     cmap='Blues',
-    #                     title=None)
-
+    make_confusion_matrix(cf_matrix,
+                          group_names=labels,
+                          categories='auto',
+                          count=True,
+                          percent=True,
+                          cbar=True,
+                          xyticks=True,
+                          xyplotlabels=True,
+                          sum_stats=True,
+                          figsize=None,
+                          cmap='Blues',
+                          title=None)
