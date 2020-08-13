@@ -111,4 +111,4 @@ def rnd_predict(model_path, model_weight_path, img_path, clToInt_dict):
     return str_img_class, img_class
 
 
-os.kill(os.getpid(), signal.SIGKILL)
+#os.kill(os.getpid(), signal.SIGKILL)

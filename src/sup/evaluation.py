@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
-from numpy import np
+import numpy as np
 from sklearn.metrics import roc_curve, auc
 
 plt.style.use('ggplot')
 
 from sklearn.metrics import confusion_matrix
-from .cf_metrix import make_confusion_matrix
+from src.sup.cf_metrix import make_confusion_matrix
 
 
 # %matplotlib inline
