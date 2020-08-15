@@ -25,4 +25,4 @@ def img_resize(current_dir,save_dir,size_x=300,size_y=300,):
         cv2.imwrite(os.path.join(save_dir,name),res)
 
 
-img_resize('../../datasets/train/Brain/','../../datasets/train/Brains',24,24)
+img_resize('../../datasets/training/Other','../../datasets/training/others')
