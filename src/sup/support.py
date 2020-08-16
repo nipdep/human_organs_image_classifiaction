@@ -96,12 +96,11 @@ def rnd_predict(model_path, model_weight_path, img_path, clToInt_dict):
     model = load_model(model_path)
     model.load_weights(model_weight_path)
 
-    x_img = load_img(img_path, target_size=(300, 300))
+    x_img = load_img(img_path, target_size=(224, 224))
     x = img_to_array(x_img)
     x = np.expand_dims(x, axis=0)
-
-    result = model.predict(x)[0]
-    img_class = np.argmax(result)
+    result = model.predict(x)
+    img_class = np.argmax(result[0])
     str_img_class = clToInt_dict[img_class]
 
     plt.imshow(x_img)

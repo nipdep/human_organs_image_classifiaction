@@ -33,6 +33,7 @@ def acc_n_loss(history):
     plt.show()
 
 
+
 def ROC_classes(n_classes, y_test, y_predict_proba, labels=[]):
     # Compute ROC curve and ROC AUC for each class
     fpr = dict()
@@ -40,8 +41,12 @@ def ROC_classes(n_classes, y_test, y_predict_proba, labels=[]):
     roc_auc = dict()
     all_y_test_i = np.array([])
     all_y_predict_proba = np.array([])
+
+    y_predc = y_predict_proba.astype('int32')
+    y_predict_proba = np.eye(6)[y_predc]
+
     for i in range(n_classes):
-        y_test_i = map(lambda x: 1 if x == i else 0, y_test)
+        y_test_i = np.array(list(map(lambda x: 1 if x == i else 0, y_test)))
         all_y_test_i = np.concatenate([all_y_test_i, y_test_i])
         all_y_predict_proba = np.concatenate([all_y_predict_proba, y_predict_proba[:, i]])
         fpr[i], tpr[i], _ = roc_curve(y_test_i, y_predict_proba[:, i])
