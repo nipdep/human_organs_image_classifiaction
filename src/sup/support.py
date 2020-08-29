@@ -21,14 +21,17 @@ def path_update(root_dir, composing_dirs):
     return composed_dirs
 
 
-def visualize_model(model, img_paths):
+def visualize_model(model_path,model_weight_path, img_paths):
+    model = load_model(model_path)
+    model.load_weights(model_weight_path)
+
     successive_outputs = [layer.output for layer in model.layers[1:]]
     # visualization_model = Model(img_input, successive_outputs)
     visualization_model = tf.keras.models.Model(inputs=model.input, outputs=successive_outputs)
     # prepare a random input image from the training set.
-    img_path = random.choice(img_paths)
+    #img_path = random.choice(img_paths)                                   ## comment for enter only one perticular pic.
 
-    img = load_img(img_path, target_size=(300, 300))  # this is a PIL image
+    img = load_img(img_paths, target_size=(224, 224))  # this is a PIL image
     x = img_to_array(img)  # Numpy array with shape (150, 150, 3)
     x = x.reshape((1,) + x.shape)  # Numpy array with shape (1, 150, 150, 3)
 

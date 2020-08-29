@@ -95,7 +95,7 @@ def plot_confusion_metrix(y, y_pred, labels):
 
     make_confusion_matrix(cf_matrix,
                           group_names=labels,
-                          categories='auto',
+                          categories=labels,
                           count=True,
                           percent=True,
                           cbar=True,

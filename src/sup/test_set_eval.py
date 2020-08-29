@@ -4,7 +4,7 @@ from .support import path_update
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 
-def test_eval(model,classes):
+def test_eval(model):
     test_dir = '../../datasets/validation/'
     #te_heart_dir, te_brain_dir, te_eye_dir, te_kidney_dir, te_skull_dir = path_update(test_dir,classes)
     test_gen_tmp = ImageDataGenerator(rescale=1/225.)

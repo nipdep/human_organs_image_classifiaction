@@ -9,7 +9,7 @@ import os
 class Sampling:
 
     def __call__(self, model_path,model_weight_path,numOfImages,img_path,img_root="",
-                 clToInt_dict={0: 'Brain', 1: 'Eye', 2: 'Heart', 3: 'Kidney', 4: 'Other', 5: 'Skull'}):
+                 clToInt_dict={0: 'Brain', 1: 'Eye', 2: 'Heart', 3: 'Kidney', 4: 'Other', 5: 'Skeleton'}):
         if numOfImages == 1:
             self.pred_sample(model_path,model_weight_path,img_path,clToInt_dict)
         else:
@@ -21,14 +21,15 @@ class Sampling:
 
         x_img = load_img(img_path, target_size=(224, 224))
         x = img_to_array(x_img)
+        print(x)
         x = np.expand_dims(x, axis=0)
-        result = model.predict(x)
-        img_class = np.argmax(result[0])
-        str_img_class = clToInt_dict[img_class]
+        #result = model.predict(x)
+        #img_class = np.argmax(result[0])
+        #str_img_class = clToInt_dict[img_class]
 
-        plt.imshow(x_img)
-        plt.title(str_img_class)
-        plt.show()
+        #plt.imshow(x_img)
+        #plt.title(str_img_class)
+        #plt.show()
 
         return
 
@@ -56,3 +57,5 @@ class Sampling:
         plt.show()
 
         return
+
+sample = Sampling()
