@@ -21,15 +21,14 @@ class Sampling:
 
         x_img = load_img(img_path, target_size=(224, 224))
         x = img_to_array(x_img)
-        print(x)
         x = np.expand_dims(x, axis=0)
-        #result = model.predict(x)
-        #img_class = np.argmax(result[0])
-        #str_img_class = clToInt_dict[img_class]
+        result = model.predict(x)
+        img_class = np.argmax(result[0])
+        str_img_class = clToInt_dict[img_class]
 
-        #plt.imshow(x_img)
-        #plt.title(str_img_class)
-        #plt.show()
+        plt.imshow(x_img)
+        plt.title(str_img_class)
+        plt.show()
 
         return
 
